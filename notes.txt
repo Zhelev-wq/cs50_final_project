@@ -1,0 +1,66 @@
+
+The idea here is to create a program that takes a docx or other kind of text file and parses it for SEO keywords
+How it works:
+    -takes docx, odt, or other file format
+    -requires input for a user-defined number of keywords
+    -the program separates the text file into paragraphs or lines or sentences
+    -then it parses the segment for keywords matches, with each match recorded in a dictionary
+    -the dictionary will have the keywords a keys and the number of matches as values
+
+Implementation (one main() and 3 supplemental functions required):
+    -docx module can be used to work on docx file
+    -other formats will have a different approach
+    -there are probably similar modules for txt, odt, etc.
+    -consider implementing a function that recognizes text file formats
+    -there are several options that you can use to create the match function
+    -regural expressions
+    -a floating point window in a for loop
+    -FlashText module (not sure how this thing works yet, supposed to be more efficient than regex)
+    -the supplementary functions need be able to be tested with pytest(which is some bullshit you have no idea on how to implement yet)
+
+The parsing algorithm will certainly pick up on 1 to 1 matches with the input keywords
+Consider what to do about partial matches, which contain parts of a keyword or where progper grammar makes direct implemntation of the keyword impossible (best casinos UK > best casinos in the UK)
+
+Potential functions:
+-keyword input:
+    asks user for the number of keywords
+    then they are entered on by one
+    alteratively you pass a txt file with each keyword on a new line
+    the keywords are then added to a dictionary with the keyword being the key and the number of matches being the value (starts at 0 (zero))
+    consider how to implement keywords, as entire strings of broken down into individual list elements
+    
+-parsing algorithm:
+    method for parsing direct matches (easy)
+    method for parsing partial mathces (kinda fucked up)
+        for your needs specifically a list of counteries will work
+        you can create a regex of some kind where the algorithm will allow a certai number of words before the country strings
+-
+
+Modules installed:
+
+pytest
+docx
+flashtext
+pytest-mock
+
+Keywords in test document:
+online casinos that accept paysafecard 
+best online casinos paysafecard 
+online casino with paysafecard 
+best online casinos that accept paysafecard
+paysafecard casino sites 
+
+
+INDIVIDUAL FUNCTION NOTES:
+
+get_keywords()
+    takes an int argument to determine the number of keywords required
+    starts a while loop asking the user for a KW input
+    after each entry, it ticks down the int argument by -1 until it reaches 0
+    bullshit to test, used pytest-mock  module to pass inputs during the loop
+    returns a list of the keywords formatted as individual dictionaries
+word_document()
+parse()
+    this can take two arguments, one the document variable, the other - the kw list
+    it can return an updated kw list 
+    the function can the parsing can be done possibly with nested loops
