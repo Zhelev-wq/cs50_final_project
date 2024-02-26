@@ -58,9 +58,24 @@ get_keywords()
     starts a while loop asking the user for a KW input
     after each entry, it ticks down the int argument by -1 until it reaches 0
     bullshit to test, used pytest-mock  module to pass inputs during the loop
-    returns a list of the keywords formatted as individual dictionaries
+    returns a list of the keywords formatted as individual dictionaries (not sure if correct approach, might change this to normal list where each kw is a list entry. Maybe the parse() function can return a dictionary with the number of keyword matches)
+
 word_document()
+    this function uses the docx module to extract the text from the docx file
+    a file is passed into the Document() function, which then recovers all paragraph elements and assigns them to a variable
+    each item in the document variable represents a paragrah element in the docx format
+    then the program loops over that data structure and appends every itteration to a list, while also formatting the itteration to standard readable text using i.text
+    the function returns the new list containing every paragraph on a different list index, this includes white spaces, Word lists, etc. It does not include tables in any form
+
+format()
+    consider adding a separate function to format the text file
+    the idea is to remove all punctuation symbols and html tags
+
 parse()
+    ***IMPORTANT***: parsing method doesn't allow for overlap between keywords. E.g. if you have 3 'best online casino' and 1 'online casino' in text, only 1 match for 'online casino' will be registered, despite that 'best online casino' shares some of the same words. 
+    
     this can take two arguments, one the document variable, the other - the kw list
     it can return an updated kw list 
     the function can the parsing can be done possibly with nested loops
+    this should be case insenstitive
+    consider how to deal with html tags in text

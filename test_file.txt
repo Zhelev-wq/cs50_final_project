@@ -173,6 +173,7 @@ Of course, we cannot ignore the downsides of the service. The <strong>inability 
 
 <h2 id="references">References</h2>
 
+
 <ol>
 <li id="reference-1"><a href="https://www.paysafecard.com/en/product-how-it-works/" target="_blank">How does paysafecard work?</a>, Paysafe Limited, Retrieved February 14, 2024</li>
 <li id="reference-2"><a href="https://www.paysafecard.com/en/show-online-shops/?country=us" target="_blank">Show online shops</a>, Paysafe Limited, Retrieved February 14, 2024</li>
@@ -180,3 +181,4 @@ Of course, we cannot ignore the downsides of the service. The <strong>inability 
 <li id="reference-4"><a href="https://www.paysafecard.com/en/fees-limits/?country=us" target="_blank">Fees & limits</a>, Paysafe Limited, Retrieved February 14, 2024</li>
 <li id="reference-5"><a href="https://www.paysafe.com/en/paysafegroup/news/detail/paysafe-reports-fourth-quarter-and-full-year-2022-results-provides-2023-outlook/" target="_blank">Paysafe reports Fourth Quarter and Full Year 2022 Results; Provides 2023 Outlook</a>, (March 9, 2023), Paysafe Limited, Retrieved February 14, 2024</li>
 </ol>
+
