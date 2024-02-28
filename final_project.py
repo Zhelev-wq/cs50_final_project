@@ -1,47 +1,57 @@
 from docx.api import Document
 from flashtext import KeywordProcessor
 import sys
+import re
 
 def main():
-    """try:
+    try:
         keyword_number = int(input("Enter number of keywords: "))
     except ValueError:
         sys.exit('Not int')
-    keyword_list = get_keywords(keyword_number)"""
+    keyword_list = get_keywords(keyword_number)
     new_doc = word_document()
-    print(new_doc)
+    formatted_doc = format(new_doc)
+    exact_match_parse(formatted_doc, keyword_list)
 
-def get_keywords(s):
-    """this function takes an int as an argument, 
-    which represents the number of KW you want to enter"""
+def get_keywords(s): #creates a list of keywords for future use
     number = int(s)
-    """empty list which will hold the KW after they are input by the user"""
     keyword_list = []
-    """this loop takes user input for each keyword, 
-    adding them to a list in the order in which they're entered,
-    after every entry the int is reduced by 1 until it reaches 0"""
     while number > 0:
         keyword_list.append(input("Enter keyword: "))
         number-=1
-    """the fuction returns the list of keywords sorted into key:value pairs"""
     return keyword_list
 
-def word_document():
-    """empty list to hold paragraph elements"""
-    new_doc = []
-    """this loads the .docx file using the python-docx module"""
+def word_document(): #this takes the docx file and returns it as txt
+    new_doc = open('temp.txt', 'w')
     document = Document('paysafecard.docx')
-    """loop that itterates over each paragraph element, 
-    coverts it to standard text,
-    then adds it to the empty list"""
     for i in document.paragraphs:
-        new_doc.append(i.text)
-    """this returns the list of paragraphs, 
-    with each paragraph being a separate list index """
-    return new_doc
-     
-def format_and_parse(keyword_dict, new_doc):
-    ...
+        new_doc.write(i.text + "\n")
+    return 'temp.txt'
+    
+def format(new_doc): #this cleans up the .txt, removing html tags, punctuation, and citation numbers with regex
+    with open(new_doc, 'r') as original_file, open('formatted_temp.txt', 'w') as formatted_file:
+        for line in original_file.readlines():
+            clean = re.compile('<.*?>')
+            line = re.sub(clean,'', line)
+            line = re.sub("[,.?]",'', line)
+            line = re.sub("\[[0-9]\]", '', line)
+            formatted_file.write(line)
+    return 'formatted_temp.txt'
+
+def exact_match_parse(formatted_file, keyword_list): #this will parse the formatted txt for exact matches
+    keyword_count = {}
+    formatted_document = open(formatted_file, 'r').read()
+    keyword_processor = KeywordProcessor()
+    for i in keyword_list:
+        keyword_processor.add_keyword(i)
+    kw_found = keyword_processor.extract_keywords(formatted_document)
+    for i in kw_found:
+        if i not in keyword_count:
+            keyword_count.update({i: 1})
+        elif i in keyword_count:
+            keyword_count[i] += 1
+    for i in keyword_count:
+        print(f'Keyword "{i}" is {keyword_count[i]} times in text')
 
 if __name__ == "__main__":
     main()
