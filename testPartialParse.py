@@ -1,15 +1,25 @@
 import re
 
-keywords = ['online casinos that accept paysafecard',
+keywords_list = ['online casinos that accept paysafecard',
 'best online casinos paysafecard',
 'online casino with paysafecard',
 'best online casinos that accept paysafecard',
 'paysafecard casino sites']
 
+# the pattern ( |(( \w* )(\w* )?)) takes one white space, or one word, or one word followed by a second word
 
-file = open('test_file2.txt', 'r')
+keyword = 'best online casinos with paysafecard'
 
-keyword1 = keywords[0]
-for i in keyword1.split(" "):
+pattern = 'best online casinos( |(( \w* )(\w* )?))paysafecard'
+if partial_match := re.search(pattern, keyword):
+    print('yes')
+else:
+    print('no')
+
+kw_patterns = []
+for keyword in keywords_list:
+    separated_kw = keyword.split(" ")
+    kw_patterns.append('( |(( \w* )(\w* )?))'.join(separated_kw))
+
+for i in kw_patterns:
     print(i)
-
