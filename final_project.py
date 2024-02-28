@@ -53,6 +53,11 @@ def exact_match_parse(formatted_file, keyword_list): #this will parse the format
     for i in keyword_count:
         print(f'Keyword "{i}" is {keyword_count[i]} times in text')
 
+def partial_match_parse(formatted_file): #this will parse the formatted document for partial KW matches. If the KW is an exact match, it will not be counted towards partial
+    keyword_count = {} 
+    
+
+
 if __name__ == "__main__":
     main()
 
