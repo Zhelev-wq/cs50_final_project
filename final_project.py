@@ -23,7 +23,7 @@ def get_keywords(s): #creates a list of keywords for future use
 
 def word_document(): #this takes the docx file and returns it as txt
     new_doc = open('temp.txt', 'w')
-    document = Document('paysafecard.docx')
+    document = Document('paysafecard.docx') #this specifically is a local file, change if you want to test with different one
     for i in document.paragraphs:
         new_doc.write(i.text + "\n")
     return 'temp.txt'
