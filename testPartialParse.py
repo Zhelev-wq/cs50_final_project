@@ -10,31 +10,45 @@ keywords_list = ['online casinos that accept paysafecard',
 
 keyword = 'The best online casinos with paysafecard are around the corner. Jone of the best online casinos offering paysafecard now.'
 
-"""pattern = r'best(?: |(?:(?: \w* )(?:\w* )?))online(?: |(?:(?: \w* )(?:\w* )?))casinos(?: |(?:(?: \w* )(?:\w* )?))paysafecard'
-if partial_match := re.findall(pattern, keyword):
-    print('yes')
-    print(partial_match)
-else:
-    print('no')"""
 
-"""kw_patterns = []
+kw_patterns = ['online(?: |(?:(?: \w* )(?:\w* )?))casinos(?: |(?:(?: \w* )(?:\w* )?))that(?: |(?:(?: \w* )(?:\w* )?))accept(?: |(?:(?: \w* )(?:\w* )?))paysafecard',
+'best(?: |(?:(?: \w* )(?:\w* )?))online(?: |(?:(?: \w* )(?:\w* )?))casinos(?: |(?:(?: \w* )(?:\w* )?))paysafecard',
+'online(?: |(?:(?: \w* )(?:\w* )?))casino(?: |(?:(?: \w* )(?:\w* )?))with(?: |(?:(?: \w* )(?:\w* )?))paysafecard',
+'best(?: |(?:(?: \w* )(?:\w* )?))online(?: |(?:(?: \w* )(?:\w* )?))casinos(?: |(?:(?: \w* )(?:\w* )?))that(?: |(?:(?: \w* )(?:\w* )?))accept(?: |(?:(?: \w* )(?:\w* )?))paysafecard',
+'paysafecard(?: |(?:(?: \w* )(?:\w* )?))casino(?: |(?:(?: \w* )(?:\w* )?))sites'
+]
+
 with open('kw_patterns.txt', 'w') as file:
     for keyword in keywords_list:
         separated_kw = keyword.split(" ")
         kw_patterns.append('(?: |(?:(?: \w* )(?:\w* )?))'.join(separated_kw))
     for keyword in kw_patterns:  
-        file.write(keyword + '\n')"""
+        file.write(keyword + '\n')
 
 
 partial_matches = []
 with open('formatted_temp.txt', 'r') as file:
     file = file.read()
-    matches = re.findall('best(?: |(?:(?: \w* )(?:\w* )?))online(?: |(?:(?: \w* )(?:\w* )?))casinos(?: |(?:(?: \w* )(?:\w* )?))paysafecard', file, re.IGNORECASE)
-    for i in matches:
-        if i.lower() in keywords_list:
-            continue
-        else:
-            partial_matches.append(i)
-print(len(partial_matches))
+    for pattern in kw_patterns:
+        matches = re.findall(pattern, file, re.IGNORECASE)
+        for match in matches:
+            count = []
+            if match.lower() in keywords_list:
+                matches.remove(match)
+            
+        partial_matches.append({
+            keywords_list[kw_patterns.index(pattern)]:len(matches)
+            })
+
 for i in partial_matches:
     print(i)
+"""for i in kw_patterns:
+    print(keywords_list[kw_patterns.index(i)])"""
+
+"""
+first the program opens the file, 
+then it loops over the KW_patterns,
+it checks how many matches are in the document,
+then, it discards any direct matches, leaving only the partial ones.
+
+"""
