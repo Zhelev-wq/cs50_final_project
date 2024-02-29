@@ -2,25 +2,36 @@ from docx.api import Document
 from flashtext import KeywordProcessor
 import sys
 import re
+from tabulate import tabulate
 
 def main():
+    doc = validate_argv()
     try:
         keyword_number = int(input("Enter number of keywords: "))
     except ValueError:
         sys.exit('Not int')
     keyword_list = get_keywords(keyword_number)
-    new_doc = word_document()
+    new_doc = word_document(doc)
     formatted_doc = format(new_doc)
+    table_visualuzation = [['Keyword', 'Exact Matches', 'Partial Matches']]
+    exact = exact_match_parse(formatted_doc, keyword_list) #list of dictionaries {KW:number}
+    partial = partial_match_parse(formatted_doc, keyword_list) #list of partial keyword matches (number)
+    
+    for count, i in enumerate(exact):
+        complete_list = [i, exact[i], partial[count]]
+        table_visualuzation.append(complete_list)
+    
+    print(tabulate(table_visualuzation, headers="firstrow", tablefmt="grid"))    
 
-    exact = exact_match_parse(formatted_doc, keyword_list)
-    partial = partial_match_parse(formatted_doc, keyword_list)
-    print('\n EXACT MATCHES \n')
-    for i in exact:
-        print(f'{i}: {exact[i]}')
-    print("\n PARTIAL MATCHES \n")
-    for i in partial:
-        print(i)
-
+def validate_argv(): #validates if the passed argument is a docx file and if the command is correct
+    if len(sys.argv)>2:
+        sys.exit("Too many command-line arguments")
+    elif len(sys.argv)<2:
+        sys.exit("Too for command-line arguments")
+    elif sys.argv[1][-5:] != '.docx':
+        sys.exit("File not .docx extension")
+    else:
+        return sys.argv[1]
 def get_keywords(s): #creates a list of keywords for future use
     number = int(s)
     keyword_list = []
@@ -29,9 +40,9 @@ def get_keywords(s): #creates a list of keywords for future use
         number-=1
     return keyword_list
 
-def word_document(): #this takes the docx file and returns it as txt
+def word_document(doc): #this takes the docx file and returns it as txt
     new_doc = open('temp.txt', 'w')
-    document = Document('paysafecard.docx') #this specifically is a local file, change if you want to test with different one
+    document = Document(doc)
     for i in document.paragraphs:
         new_doc.write(i.text + "\n")
     return 'temp.txt'
@@ -62,8 +73,6 @@ def exact_match_parse(formatted_file, keyword_list): #this will parse the format
             keyword_count.update({i: 1})
         elif i in keyword_count:"""
         keyword_count[i] += 1
-    """for i in keyword_count:
-        print(f'Keyword "{i}" is {keyword_count[i]} times in text')"""
     return keyword_count
 
 def partial_match_parse(formatted_file, keyword_list): 
@@ -83,11 +92,9 @@ def partial_match_parse(formatted_file, keyword_list):
             for match in matches:
                 if match.lower() in keyword_list:
                     matches.remove(match)
-            partial_matches.append({
-                keyword_list[kw_patterns.index(pattern)]:len(matches)
-            })
+            #partial_matches.append({keyword_list[kw_patterns.index(pattern)]:len(matches)})
+            partial_matches.append(len(matches))
     return partial_matches    
 
 if __name__ == "__main__":
     main()
-

@@ -6,9 +6,20 @@ keywords_list = ['online casinos that accept paysafecard',
 'best online casinos that accept paysafecard',
 'paysafecard casino sites']
 
+keyword_dict = {}
+
+for i in keywords_list:
+    keyword_dict.update({i:'0'})
+
+for count, i in enumerate(keyword_dict):
+    keyword_dict[i] = [keyword_dict[i], keywords_list[count]]
+
+print(keyword_dict)
+#print(len(keyword_dict.keys()))
+#print(len(keyword_dict.values()))
 # the pattern ( |(( \w* )(\w* )?)) takes one white space, or one word, or one word followed by a second word
 
-keyword = 'The best online casinos with paysafecard are around the corner. Jone of the best online casinos offering paysafecard now.'
+"""keyword = 'The best online casinos with paysafecard are around the corner. Jone of the best online casinos offering paysafecard now.'
 
 
 kw_patterns = ['online(?: |(?:(?: \w* )(?:\w* )?))casinos(?: |(?:(?: \w* )(?:\w* )?))that(?: |(?:(?: \w* )(?:\w* )?))accept(?: |(?:(?: \w* )(?:\w* )?))paysafecard',
@@ -42,13 +53,5 @@ with open('formatted_temp.txt', 'r') as file:
 
 for i in partial_matches:
     print(i)
-"""for i in kw_patterns:
+for i in kw_patterns:
     print(keywords_list[kw_patterns.index(i)])"""
-
-"""
-first the program opens the file, 
-then it loops over the KW_patterns,
-it checks how many matches are in the document,
-then, it discards any direct matches, leaving only the partial ones.
-
-"""
