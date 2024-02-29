@@ -15,7 +15,7 @@ def main():
     formatted_doc = format(new_doc)
     table_visualuzation = [['Keyword', 'Exact Matches', 'Partial Matches']]
     exact = exact_match_parse(formatted_doc, keyword_list) #list of dictionaries {KW:number}
-    partial = partial_match_parse(formatted_doc, keyword_list) #list of partial keyword matches (number)
+    partial = partial_match_parse(formatted_doc, keyword_list) #list of partial keyword matches (number only)
     
     for count, i in enumerate(exact):
         complete_list = [i, exact[i], partial[count]]
@@ -32,6 +32,7 @@ def validate_argv(): #validates if the passed argument is a docx file and if the
         sys.exit("File not .docx extension")
     else:
         return sys.argv[1]
+
 def get_keywords(s): #creates a list of keywords for future use
     number = int(s)
     keyword_list = []
@@ -69,9 +70,6 @@ def exact_match_parse(formatted_file, keyword_list): #this will parse the format
     kw_found = keyword_processor.extract_keywords(formatted_document)
 
     for i in kw_found:
-        """if i not in keyword_count:
-            keyword_count.update({i: 1})
-        elif i in keyword_count:"""
         keyword_count[i] += 1
     return keyword_count
 
