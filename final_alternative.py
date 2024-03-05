@@ -4,6 +4,12 @@ import sys
 import re
 from tabulate import tabulate
 
+class Keyword:
+    def __init__(self, keyword, exact_match, partial_match) -> None:
+        self.keyword = keyword
+        self.exact_match = exact_match
+        self.partial_match = partial_match
+
 def main():
     doc = validate_argv()
     try:
