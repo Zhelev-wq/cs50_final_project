@@ -13,15 +13,15 @@ def main():
     keyword_list = get_keywords(keyword_number)
     new_doc = word_document(doc)
     formatted_doc = format(new_doc)
-    table_visualuzation = [['Keyword', 'Exact Matches', 'Partial Matches']]
+    table_visualization = [['Keyword', 'Exact Matches', 'Partial Matches']]
     exact = exact_match_parse(formatted_doc, keyword_list) #list of dictionaries {KW:number}
     partial = partial_match_parse(formatted_doc, keyword_list) #list of partial keyword matches (number only)
     
     for count, i in enumerate(exact):
         complete_list = [i, exact[i], partial[count]]
-        table_visualuzation.append(complete_list)
+        table_visualization.append(complete_list)
     
-    print(tabulate(table_visualuzation, headers="firstrow", tablefmt="grid"))    
+    print(tabulate(table_visualization, headers="firstrow", tablefmt="grid"))    
 
 def validate_argv(): #validates if the passed argument is a docx file and if the command is correct
     if len(sys.argv)>2:

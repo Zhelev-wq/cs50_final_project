@@ -79,3 +79,5 @@ parse()
     the function can the parsing can be done possibly with nested loops
     this should be case insenstitive
     consider how to deal with html tags in text
+
+
